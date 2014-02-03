@@ -4,7 +4,8 @@ Created on Mon Feb  3 02:20:57 2014
 
 @author: eocallaghan
 """
-
+#void function compare takes two integers
+#returns values based on the relationship between x&y
 def compare(x,y):
     if (x<y):
         return 1
