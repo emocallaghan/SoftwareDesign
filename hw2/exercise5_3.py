@@ -8,7 +8,7 @@ Created on Mon Feb  3 02:20:32 2014
 def check_fermat(a, b, c, n):
     leftSideOfEq = a**n + b**n
     rightSideOfEq = c**n
-    if (leftSideOfEq==rightSideOfEq & n!= 2):
+    if (leftSideOfEq==rightSideOfEq & n > 2):
         print "Holy smokes, Fermat was wrong!"
     else:
         print "Nope, doesn't work"
