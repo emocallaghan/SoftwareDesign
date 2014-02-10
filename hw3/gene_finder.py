@@ -8,6 +8,12 @@ Created on Sun Feb  2 11:24:42 2014
 # you may find it useful to import these variables (although you are not required to use them)
 from amino_acids import aa, codons
 
+def stopCodon(currentCodon):
+    return (currentCodon == 'tag' | currentCodon == 'taa'| currentCodon == 'tga')
+    
+def find_Amino_Acid(currentCodon):
+    
+
 def collapse(L):
     """ Converts a list of strings to a string by concatenating all elements of the list """
     output = ""
@@ -27,6 +33,11 @@ def coding_strand_to_AA(dna):
     """
     
     # YOUR IMPLEMENTATION HERE
+    proteinSequence = ""
+    for i in range (dna.length()/3):
+        nextCodon = dna(3i:3i+3)#Parse String here
+        proteinSequence = proteinSequence + find_Amino_Acid(nextCodon)
+    return proteinSequence
 
 def coding_strand_to_AA_unit_tests():
     """ Unit tests for the coding_strand_to_AA function """
@@ -42,6 +53,18 @@ def get_reverse_complement(dna):
     """
     
     # YOUR IMPLEMENTATION HERE
+    for i in range (dna.length()):
+        if (dna[i]=='a'):
+            dna[i]= 't'
+            
+        elif(dna[i]=='t'):
+            dna[i]='a'
+
+        elif(dna[i]=='c'):
+            dna[i]='g'
+
+        elif(dna[i]=='g'):
+            dna[i]='c'
     
 def get_reverse_complement_unit_tests():
     """ Unit tests for the get_complement function """
@@ -58,6 +81,14 @@ def rest_of_ORF(dna):
     """
     
     # YOUR IMPLEMENTATION HERE
+    dnaSequence = ""
+    for i in range (dna.length()):
+        nextCodon = dna(3i:3i+3)
+        if (stopCodon(nextCodon)):
+            break
+        dnaSequence = dnaSequence + nextCodon
+        
+    return dnaSequence
 
 def rest_of_ORF_unit_tests():
     """ Unit tests for the rest_of_ORF function """
@@ -137,3 +168,4 @@ def gene_finder(dna, threshold):
     """
 
     # YOUR IMPLEMENTATION HERE
+    
