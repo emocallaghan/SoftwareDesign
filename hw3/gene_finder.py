@@ -29,7 +29,7 @@ def find_Amino_Acid(currentCodon):
 
 def collapse(L):
     """ Converts a list of strings to a string by concatenating all elements of the list """
-    
+    #Try "".join(L)
     output = ""    
     for s in L:
         output = output + s
@@ -73,11 +73,11 @@ def get_reverse_complement(dna):
         dna: a DNA sequence represented as a string
         returns: the reverse complementary DNA sequence represented as a string
     """
-    
-    # YOUR IMPLEMENTATION HERE
-    
+    #This isn't quite right, conceptually.
+    #Reverse_complement is both the complement and the reverse of the string itself  
+
     newDna = ""
-    for i in range (len(dna)):
+    for i in range (len(dna)): # if this was changed to: for i in range(len(dna),0,-1): it might work.
         if (dna[i]=='A'):
             newDna += 'T'
             
@@ -107,9 +107,14 @@ def rest_of_ORF(dna):
         dna: a DNA sequence
         returns: the open reading frame represented as a string
     """
+    # UHOH, your loop is too long! It's going beyond the string. Granted you got lucky and its not breaking, but
+    # as it is now, you will be trying to access indices of the list beyond the length of the list
+    # this is generally bad coding style.
+    #either make sure you only loop through range(len(dna)/3) or loop through range(0,len(dna),3)
     dnaSequence = ""
     for i in range (len(dna)):
         nextCodon = dna[3*i:3*i+3]
+        print len(dna), 3*i+3
         if (stopCodon(nextCodon)):
             break
         dnaSequence = dnaSequence + nextCodon
@@ -145,6 +150,7 @@ def find_all_ORFs_oneframe(dna):
         dna: a DNA sequence
         returns: a list of non-nested ORFs
     """
+
     ORFs = []
     i = 0
     while (i < len(dna)):
@@ -201,9 +207,16 @@ def find_all_ORFs(dna):
         dna: a DNA sequence
         returns: a list of non-nested ORFs
     """
-     
+    # When you have repetition like this, it generally means you can throw it in a for loop
+    # for i in range(3):
+    #    frameshift = dna[i:]
+    #    shifts = find_all_ORFs_oneframe(frameshift)
+    #    for shift in shifts:
+    #        all_ORFS.append(shift)
+    #    return all_ORFs
+
     frame0Shift = dna
-    frame1Shift = dna[1:len(dna)] 
+    frame1Shift = dna[1:len(dna)] #if you want to include to the end, simply doing dna[1:] will work
     frame2Shift = dna[2:len(dna)]
 
     list0Shift = find_all_ORFs_oneframe(frame0Shift)
@@ -335,14 +348,12 @@ def gene_finder(dna, threshold):
     list_Of_ORFs = find_all_ORFs_both_strands(dna)
     list_Of_Genes = []
     aminoAcidSequences = []
-    for i in range(len(list_Of_ORFs)):
-        currentLength = len(list_Of_ORFs[i])
-        
-        if(currentLength >= threshold):
-            list_Of_Genes.append(list_Of_ORFs[i])
+    for ORF in list_Of_ORFs:
+        if(len(ORF >= threshold):
+            list_Of_Genes.append(ORF)
     
-    for i in range (len(list_Of_Genes)):
-        currentDna = list_Of_Genes[i]
+    for gene in list_Of_Genes:
+        currentDna = gene
         aminoAcid = coding_strand_to_AA(currentDna)
         aminoAcidSequences.append(aminoAcid)
         
