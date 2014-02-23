@@ -18,10 +18,11 @@ def avg(a,b):
 def build_random_function(min_depth, max_depth):
     # your doc string goes here
  
-    xyList = [['x'],['y']]
+    # xyList = [['x'],['y']]
     
-    if (max_depth <= 1):
-         return xyList[random.randint(0,1)]
+    if (max_depth <= 1): #Random choice might work a little cleaner here
+         return random.choice([["x"],["y"]])
+
     f = build_random_function(min_depth-1, max_depth-1)
     g = build_random_function(min_depth-1, max_depth-1)
     
@@ -34,7 +35,7 @@ def build_random_function(min_depth, max_depth):
     x = ['x']
     y = ['y']
     
-    functionList = [prod, cos_pi, sin_pi, cubic, square, avg, x, y]
+    functionList = [prod, cos_pi, sin_p, cubic, square, avg, x, y]
     if (min_depth > 1):
         return functionList[random.randint(0,5)]
     return functionList[random.randint(0,7)]
@@ -93,3 +94,12 @@ def draw(x, y, minDepth, maxDepth, number):
             blueOutput = remap_interval(blueOutput, -1.0, 1.0, 0, 255.0)
             im.putpixel((i,j),(int(redOutput),int(greenOutput),int(blueOutput)))
     im.save("image" + str(number) + ".bmp")
+
+#Thank you for not running anything outside the functions
+#Though, if you want to test your code, put it in a main conditional
+
+
+if __name__ == "__main__":
+    num_pictures = 10
+    for i in xrange(num_pictures):
+        draw(500,500, 5, 6, i)
