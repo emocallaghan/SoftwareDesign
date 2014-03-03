@@ -58,6 +58,7 @@ def get_posts(f):
         posts_list[friend_name] = get_posts_string(friend_news, friend_name, tick)
     return posts_list
 
+
 def find_sentiments(friends):
     """Takes a dictionary of people and text written by all of the people the Key
     is the person's name and the value the text written by said person in string form
@@ -70,7 +71,7 @@ def find_sentiments(friends):
         friend_sentiment[key] = analyzed_sentiment[0]
         
     return friend_sentiment
-    
+
 def find_sentiments_unit_test():
     """Unit test for find_sentiments(dictionary) uses a small dictionary of known subjectivities
     and passes it to find_sentiments"""
@@ -348,5 +349,3 @@ def main():
         print sort_subjectivity(subjectiveList)
         print "\npeople sorted by most objective: "    
         print sort_objectivity(subjectiveList)
-        
-main()
