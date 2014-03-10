@@ -198,9 +198,7 @@ class CollisionController:
                 basicEnemy = BasicEnemy(x+50*x+100, 350)
                 self.model.basicEnemies.append(basicEnemy)
             self.collisionController.vy += .3
-            self.collisionController.bulletSpeed += .3
-            
-            
+            self.collisionController.bulletSpeed += .4
 
             return True
         for basicEnemy in self.model.basicEnemies:
